@@ -15,7 +15,7 @@ public:
 
     bool isName(const char* name) const;
 
-    char* getName() const {return this->name;} 
+    const char* getName() const {return this->name;} 
     void setName(const char* name);
 
     void setSize(const int size);

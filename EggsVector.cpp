@@ -79,7 +79,7 @@ void EggsVector::removeEgg(const char *name)
     }
 }
 
-void EggsVector::serialize(std::ostream &out)
+void EggsVector::serialize(std::ostream &out) const
 {
     if(!out)
     {
@@ -87,7 +87,7 @@ void EggsVector::serialize(std::ostream &out)
     }
     else
     {
-        out.write(reinterpret_cast<char*>(&this->count), sizeof(this->count)); //wrtie the count of all eggs in the vector
+        out.write(reinterpret_cast<const char*>(&this->count), sizeof(this->count)); //wrtie the count of all eggs in the vector
         
         for (int i = 0; i < this->count; i++)
         {

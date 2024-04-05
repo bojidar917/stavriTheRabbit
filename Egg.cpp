@@ -54,9 +54,16 @@ void Egg::setName(const char *name)
 {
     if(name != nullptr)
     {
+        char* newName = new char[strlen(name) + 1];
+        if(!newName)
+        {
+            //TODO: handle the error here
+            throw std::runtime_error("Error allocating memiry");
+        }
+
+        strcpy(newName, name);
         delete[] this->name;
-        this->name = new char[strlen(name) + 1];
-        strcpy(this->name, name);
+        this->name = newName;
     }
     else
     {
@@ -102,7 +109,7 @@ void Egg::readfromFile(std::istream &in)
         size_t size = 0;
         in.read(reinterpret_cast<char*>(&size), sizeof(size));
         delete[] this->name;
-        this->name = new char[size];
+        this->name = new(std::nothrow) char[size];
         in.read(reinterpret_cast<char*>(this->name), size);
         in.read(reinterpret_cast<char*>(&this->size), sizeof(this->size));
         in.read(reinterpret_cast<char*>(&this->uid), sizeof(this->uid));

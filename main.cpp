@@ -79,7 +79,7 @@ int main()
     // readEggsVector.print();
 
     //test to create, save and read Basket
-    Basket testBasket("testBasket1", neweggv, 5);
+    Basket testBasket("testBasket1"); //TODO: add manually each egg
 
     std::ofstream file("testBasket1.bin", std::ios::binary);
     if (!file) {
@@ -106,4 +106,5 @@ int main()
     std::cout << "printing basket..." << std::endl;
     readTestBasket.print();
 
+    return 0;
 }

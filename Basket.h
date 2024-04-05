@@ -7,7 +7,7 @@ class Basket
 {
 public:
     Basket();
-    Basket(const char* name, const EggsVector eggs, const size_t size);
+    Basket(const char* name);
     Basket(const Basket& other);
     Basket& operator=(const Basket& other);
     ~Basket();
@@ -16,14 +16,14 @@ public:
     void addEgg(const Egg& newEgg);
     void removeEgg(const char* name);
 
-    void serialize(std::ostream& out); //const or no const
+    void serialize(std::ostream& out) const;
     void deserialize(std::istream& in); 
 
     void print() const;
 
 private:
     char* name;
-    EggsVector eggs; //какво го правим като не е динамично ???
+    EggsVector eggs;
     size_t size;
 
     void clear();

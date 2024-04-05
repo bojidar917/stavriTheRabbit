@@ -5,12 +5,18 @@ Basket::Basket() : name(nullptr), size(0)
 {
 }
 
-Basket::Basket(const char *name, const EggsVector eggs, const size_t size) : size(size)
+// Basket::Basket(const char *name, const EggsVector eggs, const size_t size) : size(size)
+// {
+//     this->name = new char[strlen(name) + 1];
+//     strcpy(this->name, name);
+
+//     this->eggs = eggs;
+// }
+
+Basket::Basket(const char *name) //we need just the name and then add manually each egg
 {
     this->name = new char[strlen(name) + 1];
     strcpy(this->name, name);
-
-    this->eggs = eggs;
 }
 
 Basket::Basket(const Basket &other)
@@ -50,7 +56,7 @@ void Basket::removeEgg(const char *name)
     this->eggs.removeEgg(name);
 }
 
-void Basket::serialize(std::ostream &out)
+void Basket::serialize(std::ostream &out) const
 {
     if(!out)
     {
@@ -62,7 +68,6 @@ void Basket::serialize(std::ostream &out)
         out.write(reinterpret_cast<char*>(&nameSize), sizeof(nameSize)); //wrtie size of the name
         out.write(reinterpret_cast<char*>(this->name), nameSize); //write the name
         eggs.serialize(out);
-
     }
 }
 
@@ -77,6 +82,7 @@ void Basket::deserialize(std::istream &in)
         int nameSize = 0;
         in.read(reinterpret_cast<char*>(&nameSize), sizeof(nameSize));
         char* n = new char[nameSize];
+        if(!n) throw std::runtime_error("Error allocating memory!"); //TODO: fix the throw exception
         in.read(reinterpret_cast<char*>(n), nameSize);
         
         delete[] this->name;

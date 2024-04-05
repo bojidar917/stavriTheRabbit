@@ -12,7 +12,7 @@ public:
 
     void addEgg(const Egg& egg);
     void removeEgg(const char* name);
-    void serialize(std::ostream& out); //const or no const
+    void serialize(std::ostream& out) const;
     void deserialize(std::istream& in); 
     
     int geetCount() const {return this->count; }
